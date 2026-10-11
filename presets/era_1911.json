@@ -1,0 +1,269 @@
+{
+  "_readme": [
+    "World of January 1st, 1911 — consumed by game.js's maybeApplyEraOverrides(). Predates every crisis that historically led to WWI: the Agadir Crisis, the Italo-Turkish War, the Xinhai Revolution, and both Balkan Wars haven't happened yet, so this deliberately differs from era_1914.json in exactly the places those events later changed.",
+    "entities: new polity codes (or renames of existing codes). name -> countryLookup, color -> map fill, flag -> countryFlagOverrides (relative key under assets/flags/, e.g. 'AUH/1914.png' — see assets/flags/ATTRIBUTION.md for sourcing). AUH/OTT/RUS/DEU/GBR/RAJ/FRA reuse the exact same entities (and flags, where applicable) as era_1914.json, since none of these empires' basic identity changed between 1911 and 1914 — only their territorial extent differs in specific, historically-documented ways (see countryReassignments below). MAR is new here: Morocco is still a nominally independent Sultanate as of Jan 1911, not yet a French protectorate (that's the Agadir Crisis's outcome, per this preset's Simulation Rules).",
+    "countryReassignments: keyed by CURRENT EFFECTIVE owner code (so SOML/disputed-territory baseline overrides are honored); every shape owned by the key is reassigned to the value. Differs from era_1914.json in exactly three ways: (1) MAR is NOT reassigned to FRA — Morocco stays its own entity; (2) LBY is reassigned to OTT, not ITA — the Italo-Turkish War (Sept 1911) hasn't happened yet; (3) MKD, XKX, and ALB are reassigned to OTT, not SRB/independent — the Balkan Wars (Oct 1912 - Aug 1913) that historically stripped these from Ottoman control are still over a year away.",
+    "regionReassignments: identical to era_1914.json — the Polish partition, Austro-Hungarian Galicia, and Hungarian Transylvania all predate 1911 by well over a century, so nothing here changes.",
+    "Known first-pass approximations, deliberately country-level: Alsace-Lorraine stays FRA (modern ADM1 'Grand Est' is far larger than the 1871 territory, and not further subdivided in world_regions.json); North Schleswig stays DNK (same over-breadth problem); South Tyrol/Trentino stays ITA (Italy's world_regions.json only has 5 broad macro-regions, not fine enough to isolate it from Veneto/Friuli); Eupen-Malmedy stays BEL (Belgium's world_regions.json groups the whole country into 3 Gewest/Region-level buckets here — MP1's world_regions.json/custom_geo.json were extended with a real 10-commune Eupen-Malmedy split, see Scripts/mp1_fetch_belgium_subregions.py, but this game's basemap is intentionally left untouched, per this project's standing MP2-stays-intact rule); PNG entirely GBR (NE quarter was German New Guinea); YEM entirely OTT (Aden was British); CHN keeps modern extent (the Qing Dynasty's collapse is a live Simulation Rules event, not a starting-state territorial change); Pacific micro-territories only where a clean single owner exists. Hejaz (Saudi Arabia's Makkah + Al Madinah regions) IS now carved to OTT below, leaving Nejd (the rest of SAU) independent.",
+    "Poland does not appear as a country anywhere in this preset: POL is reassigned wholesale to RUS (the Russian partition/'Congress Poland') in countryReassignments, with the German partition (Greater Poland/Posen, West/Pomeranian, Kuyavian-Pomeranian, Warmian-Masurian, Lower Silesian, Opole, Silesian) carved to DEU and the Austrian partition (Lesser Poland, Subcarpathian — Galicia) carved to AUH in regionReassignments.POL."
+  ],
+  "unassignedKeepModernOwner": true,
+  "entities": {
+    "AUH": {
+      "name": "Austria-Hungary",
+      "color": "#c9a85f",
+      "flag": "AUH/1914.png"
+    },
+    "OTT": {
+      "name": "Ottoman Empire",
+      "color": "#8f4a6b",
+      "flag": "OTT/1914.png"
+    },
+    "RUS": {
+      "name": "Russian Empire",
+      "flag": "RUS/1914.png"
+    },
+    "CHN": {
+      "name": "Qing Empire",
+      "flag": "CHN/1911.png"
+    },
+    "IRN": {
+      "name": "Persia",
+      "flag": "IRN/1907.png"
+    },
+    "SAU": {
+      "name": "Emirate of Nejd",
+      "flag": "SAU/1902.png"
+    },
+    "THA": {
+      "name": "Siam",
+      "flag": "THA/1855.png"
+    },
+    "ITA": {
+      "name": "Kingdom of Italy",
+      "flag": "ITA/1861.png"
+    },
+    "ESP": {
+      "name": "Kingdom of Spain",
+      "flag": "ESP/1875.png"
+    },
+    "DEU": {
+      "name": "German Empire",
+      "color": "#3d4a35",
+      "flag": "DEU/1914.png"
+    },
+    "GBR": {
+      "name": "British Empire",
+      "color": "#c9973f"
+    },
+    "RAJ": {
+      "name": "British Raj",
+      "color": "#a8657a",
+      "flag": "RAJ/1914.png"
+    },
+    "FRA": {
+      "name": "French Republic",
+      "color": "#9c8a4e"
+    },
+    "MAR": {
+      "name": "Sultanate of Morocco",
+      "color": "#4a7a6b",
+      "flag": "MAR/1911.png"
+    }
+  },
+  "countryReassignments": {
+    "AUT": "AUH",
+    "HUN": "AUH",
+    "CZE": "AUH",
+    "SVK": "AUH",
+    "SVN": "AUH",
+    "HRV": "AUH",
+    "BIH": "AUH",
+    "TUR": "OTT",
+    "SYR": "OTT",
+    "LBN": "OTT",
+    "ISR": "OTT",
+    "PSE": "OTT",
+    "JOR": "OTT",
+    "IRQ": "OTT",
+    "YEM": "OTT",
+    "LBY": "OTT",
+    "MKD": "OTT",
+    "XKX": "OTT",
+    "ALB": "OTT",
+    "FIN": "RUS",
+    "EST": "RUS",
+    "LVA": "RUS",
+    "LTU": "RUS",
+    "BLR": "RUS",
+    "UKR": "RUS",
+    "MDA": "RUS",
+    "GEO": "RUS",
+    "ARM": "RUS",
+    "AZE": "RUS",
+    "KAZ": "RUS",
+    "KGZ": "RUS",
+    "TJK": "RUS",
+    "TKM": "RUS",
+    "UZB": "RUS",
+    "POL": "RUS",
+    "IND": "RAJ",
+    "PAK": "RAJ",
+    "BGD": "RAJ",
+    "LKA": "RAJ",
+    "MMR": "RAJ",
+    "MDV": "RAJ",
+    "IRL": "GBR",
+    "CYP": "GBR",
+    "MLT": "GBR",
+    "MYS": "GBR",
+    "SGP": "GBR",
+    "BRN": "GBR",
+    "EGY": "GBR",
+    "SDN": "GBR",
+    "SSD": "GBR",
+    "UGA": "GBR",
+    "KEN": "GBR",
+    "ZMB": "GBR",
+    "ZWE": "GBR",
+    "MWI": "GBR",
+    "BWA": "GBR",
+    "LSO": "GBR",
+    "SWZ": "GBR",
+    "NGA": "GBR",
+    "GHA": "GBR",
+    "SLE": "GBR",
+    "GMB": "GBR",
+    "SOML": "GBR",
+    "MUS": "GBR",
+    "SYC": "GBR",
+    "KWT": "GBR",
+    "QAT": "GBR",
+    "BHR": "GBR",
+    "ARE": "GBR",
+    "PNG": "GBR",
+    "FJI": "GBR",
+    "SLB": "GBR",
+    "TON": "GBR",
+    "KIR": "GBR",
+    "TUV": "GBR",
+    "VUT": "GBR",
+    "JAM": "GBR",
+    "TTO": "GBR",
+    "GUY": "GBR",
+    "BLZ": "GBR",
+    "BHS": "GBR",
+    "BRB": "GBR",
+    "GRD": "GBR",
+    "VCT": "GBR",
+    "LCA": "GBR",
+    "DMA": "GBR",
+    "KNA": "GBR",
+    "ATG": "GBR",
+    "DZA": "FRA",
+    "TUN": "FRA",
+    "MRT": "FRA",
+    "SEN": "FRA",
+    "MLI": "FRA",
+    "GIN": "FRA",
+    "CIV": "FRA",
+    "BFA": "FRA",
+    "NER": "FRA",
+    "TCD": "FRA",
+    "CAF": "FRA",
+    "COG": "FRA",
+    "GAB": "FRA",
+    "BEN": "FRA",
+    "MDG": "FRA",
+    "DJI": "FRA",
+    "COM": "FRA",
+    "VNM": "FRA",
+    "LAO": "FRA",
+    "KHM": "FRA",
+    "TZA": "DEU",
+    "RWA": "DEU",
+    "BDI": "DEU",
+    "NAM": "DEU",
+    "CMR": "DEU",
+    "TGO": "DEU",
+    "WSM": "DEU",
+    "MHL": "DEU",
+    "FSM": "DEU",
+    "PLW": "DEU",
+    "NRU": "DEU",
+    "AGO": "PRT",
+    "MOZ": "PRT",
+    "GNB": "PRT",
+    "CPV": "PRT",
+    "STP": "PRT",
+    "TLS": "PRT",
+    "COD": "BEL",
+    "ERI": "ITA",
+    "SOM": "ITA",
+    "ESH": "ESP",
+    "GNQ": "ESP",
+    "IDN": "NLD",
+    "PHL": "USA",
+    "PRI": "USA",
+    "ISL": "DNK",
+    "GRL": "DNK",
+    "KOR": "JPN",
+    "TWN": "JPN"
+  },
+  "regionReassignments": {
+    "POL": {
+      "2104": "DEU",
+      "2109": "DEU",
+      "2117": "DEU",
+      "2113": "DEU",
+      "2105": "DEU",
+      "2116": "DEU",
+      "2107": "DEU",
+      "2111": "DEU",
+      "2114": "DEU",
+      "2106": "AUH",
+      "2115": "AUH"
+    },
+    "UKR": {
+      "2830": "AUH",
+      "2822": "AUH",
+      "2837": "AUH",
+      "2840": "AUH",
+      "2819": "AUH"
+    },
+    "ROU": {
+      "2177": "AUH",
+      "2178": "AUH",
+      "2181": "AUH",
+      "2182": "AUH",
+      "2185": "AUH",
+      "2189": "AUH",
+      "2190": "AUH",
+      "2192": "AUH",
+      "2198": "AUH",
+      "2199": "AUH",
+      "2203": "AUH",
+      "2205": "AUH",
+      "2209": "AUH",
+      "2210": "AUH",
+      "2211": "AUH",
+      "2214": "AUH"
+    },
+    "SAU": {
+      "2314": "OTT",
+      "2309": "OTT"
+    },
+    "RUS": {
+      "2239": "DEU"
+    },
+    "FRA": {
+      "Bas-Rhin": "DEU",
+      "Haut-Rhin": "DEU",
+      "Moselle": "DEU"
+    },
+    "ITA": {
+      "Trentino-Alto Adige": "AUH",
+      "Friuli Venezia Giulia": "AUH"
+    }
+  }
+}
