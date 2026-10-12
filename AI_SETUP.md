@@ -1,6 +1,6 @@
 # Connecting an AI to Map Painter 2
 
-This applies to Map Painter 2 specifically. Map Painter 1 (the other, experimental WebGL rebuild) has its own identical copy of this file in its own folder — the two games are separate, but they share the exact same "Game & AI Setup" settings panel, so the steps below work the same way in both.
+This applies to Map Painter 2. Map Painter 1 has its own copy of this file — the AI fields are the same in both games, only where you open them differs.
 
 All of this lives under the gear icon (top right of the map) → **Game & AI Setup**, at the bottom of the **Map & Display** settings panel. There are five fields: **AI Provider**, **Base URL**, **API Key**, **Model**, and a **Test Connection** button. Nothing here is sent anywhere except directly from your browser to whichever provider you choose — it's stored only in this browser's local storage.
 
