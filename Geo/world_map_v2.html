@@ -1301,6 +1301,39 @@
         // handful of affected provinces directly instead of looping all ~49k layers.
         const provinceLayerById = {};
 
+        // ---- One-time custom-entity territory grant, requested by the menu's
+        // "Create Entity & Play" flow (PENDING_GRANT_KEY in static/menu.js). The
+        // menu can't do this itself — only this page loads the shape data — so
+        // it leaves a note in localStorage and this applies it once, right after
+        // targetObject is available and before initGameSystems() first loads the
+        // save, then deletes the note. Writes straight into the raw
+        // mappainter2_gamestate_v1 JSON. Same mechanism as Map Painter 1.
+        function applyPendingCustomEntityGrant() {
+            if (PICKER_MODE) return;
+            const PENDING_GRANT_KEY = 'mp2_pending_region_grant';
+            let pending;
+            try { pending = JSON.parse(localStorage.getItem(PENDING_GRANT_KEY) || 'null'); } catch (e) { pending = null; }
+            if (!pending || !pending.code || !pending.countryCodes || !pending.countryCodes.length) {
+                localStorage.removeItem(PENDING_GRANT_KEY);
+                return;
+            }
+            let gs;
+            try { gs = JSON.parse(localStorage.getItem('mappainter2_gamestate_v1') || '{}') || {}; } catch (e) { gs = {}; }
+            gs.provinceOwnerOverrides = gs.provinceOwnerOverrides || {};
+            gs.customCountries = gs.customCountries || {};
+            gs.customCountries[pending.code] = pending.name || pending.code;
+            const codeSet = {};
+            pending.countryCodes.forEach(function (c) { codeSet[c] = true; });
+            targetObject.geometries.forEach(function (g) {
+                const props = g.properties;
+                if (props && props.shapeGroup && codeSet[props.shapeGroup]) {
+                    gs.provinceOwnerOverrides[props.shapeID] = pending.code;
+                }
+            });
+            localStorage.setItem('mappainter2_gamestate_v1', JSON.stringify(gs));
+            localStorage.removeItem(PENDING_GRANT_KEY);
+        }
+
         function getEffectiveCountry(shapeID, originalShapeGroup) {
             return provinceOwnerOverrides[shapeID] || originalShapeGroup;
         }
@@ -1872,6 +1905,7 @@
 
                 updateLoaderText("Parsing TopoJSON Geometries...");
                 targetObject = topology.objects.geoBoundariesCGAZ_ADM2;
+                applyPendingCustomEntityGrant();
 
                 // Extract standalone municipality GeoJSON features
                 municipalityGeoJSON = topojson.feature(topology, targetObject);

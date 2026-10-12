@@ -27,7 +27,7 @@ satellite terrain. Its sister game, Map Painter 1, uses a faster WebGL map at st
 3. Go to **Presets** and pick a starting point: *Modern Day*, *World War I: The Road to War*,
    *World War I*, *World War II: The Road to War*, or *World War II*.
 4. Click **Play Now**, then choose your nation on the map or from the list — or use **Custom** to
-   create your own entity with a name, color, and lore — and start the game.
+   create your own entity with a name, color, lore, and starting regions — and start the game.
 5. The first time, connect an AI: gear icon (top right of the map) → **Game & AI Setup**.
    Step-by-step instructions for every provider are in [AI_SETUP.md](AI_SETUP.md).
 
